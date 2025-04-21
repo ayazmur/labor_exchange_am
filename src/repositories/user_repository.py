@@ -16,6 +16,7 @@ class UserRepository(IRepositoryAsync):
     def __init__(self, session: Callable[..., AbstractContextManager[Session]]):
         self.session = session
 
+
     async def create(self, user_create_dto: UserCreateSchema, hashed_password: str) -> UserModel:
         async with self.session() as session:
             user = User(
@@ -116,10 +117,21 @@ class UserRepository(IRepositoryAsync):
         if user_from_db:
             if include_relations:
                 if user_from_db.is_company:
-                    user_jobs = [JobModel(id=job.id) for job in user_from_db.jobs]
+                    user_jobs = [JobModel(id=job.id,
+                        user_id=job.user_id,
+                        title=job.title,
+                        description=job.description,
+                        salary_from=job.salary_from,
+                        salary_to=job.salary_to,
+                        is_active=job.is_active,
+                        created_at=job.created_at) for job in user_from_db.jobs]
                 else:
                     user_responses = [
-                        ResponseModel(id=response.id) for response in user_from_db.responses
+                        ResponseModel(
+                        id=response.id,
+                        job_id=response.job_id,
+                        user_id=response.user_id,
+                        message=response.message) for response in user_from_db.responses
                     ]
 
             user_model = UserModel(

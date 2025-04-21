@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from storage.sqlalchemy.client import Base
@@ -13,7 +13,7 @@ class Response(Base):
     )
     job_id: Mapped[int] = mapped_column(ForeignKey("jobs.id"), comment="Идентификатор вакансии")
 
-    # добавьте ваши колонки сюда
+    message: Mapped[str] = mapped_column(Text())
 
     user: Mapped["User"] = relationship(back_populates="responses")  # noqa
     job: Mapped["Job"] = relationship(back_populates="responses")  # noqa
