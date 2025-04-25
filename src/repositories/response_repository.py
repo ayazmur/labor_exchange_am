@@ -16,7 +16,7 @@ from web.schemas import ResponseCreateSchema, ResponseUpdateSchema
 # job_id: int
 # user_id: int
 # message: str
-class RepsponseRepository(IRepositoryAsync):
+class ResponseRepository(IRepositoryAsync):
     def __init__(self, session: Callable[..., AbstractContextManager[Session]]):
         self.session = session
 

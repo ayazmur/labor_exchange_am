@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
-from models.job import Job
-from models.response import Response
+from models.domain.job import Job
+from models.domain.response import Response
 
 
 @dataclass

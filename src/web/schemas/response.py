@@ -1,11 +1,7 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, constr, model_validator
-from typing_extensions import Self
-# id: int
-#     job_id: int
-#     user_id: int
-#     message: str
+from pydantic import BaseModel
+
 
 class ResponseSchema(BaseModel):
     id: Optional[int] = None
@@ -25,4 +21,3 @@ class ResponseCreateSchema(BaseModel):
     job_id: int
     user_id: int
     message: str
-

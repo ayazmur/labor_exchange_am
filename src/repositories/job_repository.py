@@ -18,6 +18,7 @@ class JobRepository(IRepositoryAsync):
 
     async def create(self, job_create_dto: JobCreateSchema) -> JobModel:
         job = Job(
+            user_id=job_create_dto.user_id,
             title = job_create_dto.title,
             description=job_create_dto.description,
             salary_from = job_create_dto.salary_from,
