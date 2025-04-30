@@ -20,7 +20,7 @@ class ResponseRepository(IRepositoryAsync):
     def __init__(self, session: Callable[..., AbstractContextManager[Session]]):
         self.session = session
 
-    async def create(self, response_create_dto: ResponseCreateSchema) -> UserModel:
+    async def create(self, response_create_dto: ResponseCreateSchema) -> ResponseModel:
         response = Response(
             user_id = response_create_dto.user_id,
             job_id=response_create_dto.job_id,
@@ -32,7 +32,7 @@ class ResponseRepository(IRepositoryAsync):
             await session.commit()
             await session.refresh(response)
 
-        return self._to_response_model(response_from_db=response, include_relations=False)
+        return self._to_response_model(response_from_db=response)
 
     async def retrieve(self, include_relations: bool = False, **kwargs) -> ResponseModel:
         async with self.session() as session:
