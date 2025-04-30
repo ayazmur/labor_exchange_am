@@ -19,7 +19,7 @@ class UserUpdateSchema(BaseModel):
     """
     name: str = Field(description="Имя пользователя")
     email: EmailStr = Field(description="Email адрес")
-    is_company: bool = Field(description="Флаг компании"
+    is_company: bool = Field(description="Флаг компании")
 
 
 class UserCreateSchema(BaseModel):

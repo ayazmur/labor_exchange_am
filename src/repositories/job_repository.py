@@ -115,6 +115,7 @@ class JobRepository(IRepositoryAsync):
 
         if job_from_db:
             job_model = JobModel(
+                user_id=job_from_db.user_id,
                 id = job_from_db.id,
                 title = job_from_db.title,
                 description=job_from_db.description,
