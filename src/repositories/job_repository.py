@@ -24,7 +24,7 @@ class JobRepository(IRepositoryAsync):
             salary_from = job_create_dto.salary_from,
             salary_to=job_create_dto.salary_to,
             is_active=job_create_dto.is_active,
-            created_at=job_create_dto.created_at,
+            # created_at=job_create_dto.created_at,
 
         )
         async with self.session() as session:

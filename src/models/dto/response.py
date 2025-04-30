@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ResponseUpdateDto(BaseModel):
@@ -6,6 +6,6 @@ class ResponseUpdateDto(BaseModel):
 
 
 class ResponseCreateDto(BaseModel):
-    job_id: int
+    job_id: int = Field()
     user_id: int
     message: str

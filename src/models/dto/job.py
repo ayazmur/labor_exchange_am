@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class JobUpdateDto(BaseModel):
@@ -12,4 +12,4 @@ class JobUpdateDto(BaseModel):
 
 
 class JobCreateDto(JobUpdateDto):
-    user_id: int
+    user_id: int = Field(..., description="ID пользователя, создающего вакансию")
