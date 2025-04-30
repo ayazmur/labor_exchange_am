@@ -2,10 +2,16 @@ from pydantic import BaseModel, Field
 
 
 class ResponseUpdateDto(BaseModel):
-    message: str
+    """
+    Модель для обновления откликов
+    """
+    message: str = Field(description="Письмо от пользователя")
 
 
 class ResponseCreateDto(BaseModel):
-    job_id: int = Field()
-    user_id: int
-    message: str
+    """
+    Модель для создания откликов
+    """
+    job_id: int = Field(description="Идентификатор вакансии")
+    user_id: int = Field(description="Идентификатор пользователя")
+    message: str = Field(description="Письмо от пользователя")

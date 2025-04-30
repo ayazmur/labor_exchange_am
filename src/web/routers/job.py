@@ -49,7 +49,7 @@ async def create_job(
 
     if not current_user.is_company:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     job_create_dto = JobCreateDto(
@@ -73,7 +73,7 @@ async def update_job(
     existing_job = await job_repository.retrieve(id=job_update_schema.id)
     if existing_job and existing_job.user_id != current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     try:
@@ -108,7 +108,7 @@ async def delete(
     existing_job = await job_repository.retrieve(id=id)
     if existing_job and existing_job.user_id != current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     try:

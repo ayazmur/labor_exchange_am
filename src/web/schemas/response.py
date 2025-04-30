@@ -1,23 +1,32 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ResponseSchema(BaseModel):
-    id: Optional[int] = None
-    job_id: int
-    user_id: int
-    message: str
+    """
+    Схема отклика
+    """
+    id: Optional[int] = Field(description="Идентификатор отклика")
+    job_id: int = Field(description="Идентификатор вакансии")
+    user_id: int = Field(description="Идентификатор пользователя")
+    message: str = Field(description="Письмо от пользователя ")
 
 
 class ResponseUpdateSchema(BaseModel):
-    job_id: Optional[int] = None
-    user_id: Optional[int] = None
-    message: Optional[str] = None
+    """
+    Схема обновления вакансии
+    """
+    job_id: int = Field(description="Идентификатор вакансии")
+    user_id: int = Field(description="Идентификатор пользователя")
+    message: str = Field(description="Письмо от пользователя ")
 
 
 class ResponseCreateSchema(BaseModel):
-    id: Optional[int] = None
-    job_id: int
-    user_id: int
-    message: str
+    """
+    Схема создания отклика
+    """
+    id: Optional[int] = Field(description="идентифкатор отклика")
+    job_id: int = Field(description="Идентификатор вакансии")
+    user_id: int = Field(description="Идентификатор пользователя")
+    message: str = Field(description="Письмо от пользователя ")

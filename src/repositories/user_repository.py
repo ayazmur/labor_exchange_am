@@ -30,7 +30,7 @@ class UserRepository(IRepositoryAsync):
             await session.commit()
             await session.refresh(user)
 
-        return self.__to_user_model(user_from_db=user, include_relations=False)
+        return self._to_user_model(user_from_db=user, include_relations=False)
 
     async def retrieve(self, include_relations: bool = False, **kwargs) -> UserModel:
         async with self.session() as session:
@@ -41,7 +41,7 @@ class UserRepository(IRepositoryAsync):
             res = await session.execute(query)
             user_from_db = res.scalars().first()
 
-        user_model = self.__to_user_model(
+        user_model = self._to_user_model(
             user_from_db=user_from_db, include_relations=include_relations
         )
         return user_model
@@ -59,7 +59,7 @@ class UserRepository(IRepositoryAsync):
 
         users_model = []
         for user in users_from_db:
-            model = self.__to_user_model(user_from_db=user, include_relations=include_relations)
+            model = self._to_user_model(user_from_db=user, include_relations=include_relations)
             users_model.append(model)
 
         return users_model
@@ -91,7 +91,7 @@ class UserRepository(IRepositoryAsync):
             await session.commit()
             await session.refresh(user_from_db)
 
-        new_user = self.__to_user_model(user_from_db, include_relations=False)
+        new_user = self._to_user_model(user_from_db, include_relations=False)
         return new_user
 
     async def delete(self, id: int):
@@ -106,10 +106,10 @@ class UserRepository(IRepositoryAsync):
             else:
                 raise ValueError("Пользователь не найден")
 
-        return self.__to_user_model(user_from_db, include_relations=False)
+        return self._to_user_model(user_from_db, include_relations=False)
 
     @staticmethod
-    def __to_user_model(user_from_db: User, include_relations: bool = False) -> UserModel:
+    def _to_user_model(user_from_db: User, include_relations: bool = False) -> UserModel:
         user_jobs = []
         user_responses = []
         user_model = None

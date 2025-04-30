@@ -6,6 +6,9 @@ from models.domain.response import Response
 
 @dataclass
 class User:
+    """
+    Пользователь
+    """
     id: int
     name: str
     email: str

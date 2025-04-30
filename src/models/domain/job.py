@@ -3,6 +3,9 @@ from datetime import datetime
 
 @dataclass
 class Job:
+    """
+    Вакансия
+    """
     id: int
     user_id: int
     title: str

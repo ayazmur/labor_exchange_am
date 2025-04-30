@@ -53,7 +53,7 @@ async def get_responses_by_job_id(
     job_model = await job_repository.retrieve(id=job_id)
     if job_model and job_model.user_id != current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     response_models = await response_repository.retrieve_many()
@@ -84,7 +84,7 @@ async def create_response(
 
     if current_user.is_company:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=status.HTTP_403_FORBIDDEN,
             detail="Откликаться могут только соискатели",
         )
 
@@ -110,7 +110,7 @@ async def update_response(
     existing_response = await response_repository.retrieve(id=response_update_schema.id)
     if existing_response and existing_response.user_id != current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     try:
@@ -141,7 +141,7 @@ async def delete(
     existing_response = await response_repository.retrieve(id=id)
     if existing_response and existing_response.user_id != current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав"
         )
 
     try:

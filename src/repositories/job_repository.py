@@ -33,7 +33,7 @@ class JobRepository(IRepositoryAsync):
             await session.commit()
             await session.refresh(job)
 
-        return self.__to_job_model(job_from_db=job)
+        return self._to_job_model(job_from_db=job)
 
     async def retrieve(self, include_relations: bool = False, **kwargs) -> JobModel:
         async with self.session() as session:
@@ -41,7 +41,7 @@ class JobRepository(IRepositoryAsync):
             res = await session.execute(query)
             job_from_db = res.scalars().first()
 
-        job_model = self.__to_job_model(
+        job_model = self._to_job_model(
             job_from_db=job_from_db
         )
         return job_model
@@ -59,7 +59,7 @@ class JobRepository(IRepositoryAsync):
 
         job_model = []
         for job in job_from_db:
-            model = self.__to_job_model(job_from_db=job)
+            model = self._to_job_model(job_from_db=job)
             job_model.append(model)
 
         return job_model
@@ -92,7 +92,7 @@ class JobRepository(IRepositoryAsync):
             await session.commit()
             await session.refresh(job_from_db)
 
-        new_job = self.__to_job_model(job_from_db)
+        new_job = self._to_job_model(job_from_db)
         return new_job
 
     async def delete(self, id: int):
@@ -107,10 +107,10 @@ class JobRepository(IRepositoryAsync):
             else:
                 raise ValueError("Вакансия не найден")
 
-        return self.__to_job_model(job_from_db)
+        return self._to_job_model(job_from_db)
 
     @staticmethod
-    def __to_job_model(job_from_db: Job) -> JobModel:
+    def _to_job_model(job_from_db: Job) -> JobModel:
         job_model = None
 
         if job_from_db:

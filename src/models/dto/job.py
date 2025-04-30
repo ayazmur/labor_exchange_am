@@ -4,12 +4,18 @@ from pydantic import BaseModel, Field
 
 
 class JobUpdateDto(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    salary_from: Optional[str] = None
-    salary_to: Optional[str] = None
-    is_active: bool = True
+    """
+    Модель данных для обновления вакансии
+    """
+    title: Optional[str] = Field(description="Название вакансии")
+    description: Optional[str] = Field(description="Описание вакансии")
+    salary_from: Optional[str] = Field(description="Нижний порог зарплаты")
+    salary_to: Optional[str] = Field(description="Верхний порог зарплаты")
+    is_active: bool = Field(description="Активность вакансии")
 
 
 class JobCreateDto(JobUpdateDto):
-    user_id: int = Field(..., description="ID пользователя, создающего вакансию")
+    """
+    Модель данных для создания вакансии
+    """
+    user_id: int = Field(description="ID пользователя, создающего вакансию")

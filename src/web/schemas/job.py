@@ -1,22 +1,29 @@
-import datetime
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, constr, model_validator
-from typing_extensions import Self
+from pydantic import BaseModel, Field
 
 
 class JobCreateSchema(BaseModel):
-    title: Optional[str] = None
-    description: Optional[str] = None
-    salary_from: Optional[str] = None
-    salary_to: Optional[str] = None
-    is_active: bool = True
+    """
+    Схема создания вакансии
+    """
+    title: Optional[str] = Field(description="Название вакансии")
+    description: Optional[str] = Field(description="Описание вакансии")
+    salary_from: Optional[str] = Field(description="Нижний порог зарплаты")
+    salary_to: Optional[str] = Field(description="Верхний порог зарплаты")
+    is_active: bool = Field(default=True, description="Активность вакансии")
 
 
 class JobSchema(JobCreateSchema):
-    id: int
-    user_id: int
+    """
+    Схема вакансии
+    """
+    id: int = Field(description="Идентификатор вакансии")
+    user_id: int = Field(description="Идентификатор пользователя")
 
 
 class JobUpdateSchema(JobCreateSchema):
-    id: int
+    """
+    Схема обновления вакансии
+    """
+    id: int = Field(description="Идентификатор вакансии")
