@@ -57,7 +57,7 @@ async def update_user(
 
     existing_user = await user_repository.retrieve(email=user_update_schema.email)
     if existing_user and existing_user.id != current_user.id:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Недостаточно прав")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав")
 
     try:
         updated_user = await user_repository.update(current_user.id, user_update_schema)
